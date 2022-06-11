@@ -1,5 +1,6 @@
 module Main.Grid
-  ( Grid(..)
+  ( Grid
+  , grid
   , gridWinner
   )
   where
@@ -9,10 +10,15 @@ import Prelude
 import Data.Foldable (findMap)
 import Data.List (List(..), (:))
 import Data.Maybe (Maybe)
-import Main.GridRow (GridRow(..), firstCell, rowWinner, secondCell, thirdCell)
+import Data.Three (Three(..), fst, snd, trd)
+import Main.GridRow (GridRow, firstCell, rowWinner, secondCell, thirdCell)
 import Main.Player (Player)
 
-data Grid = Grid GridRow GridRow GridRow
+type Grid = Three GridRow
+
+-- | Grid ctor.
+grid :: GridRow -> GridRow -> GridRow -> Grid
+grid = Three
 
 -- | Grid winner, if there is one.
 gridWinner :: Grid -> Maybe Player
@@ -33,32 +39,32 @@ allRows = flap ( firstRow
 
 -- | First (top) row of grid.
 firstRow :: Grid -> GridRow
-firstRow (Grid r _ _) = r
+firstRow = fst
 
 -- | Second (middle) row of grid.
 secondRow :: Grid -> GridRow
-secondRow (Grid _ r _) = r
+secondRow = snd
 
 -- | Third (bottom) row of grid.
 thirdRow :: Grid -> GridRow
-thirdRow (Grid _ _ r) = r
+thirdRow = trd
 
 -- | First (left) column of grid.
 firstColumn :: Grid -> GridRow
-firstColumn (Grid r1 r2 r3) = GridRow (firstCell r1) (firstCell r2) (firstCell r3)
+firstColumn = map firstCell
 
 -- | Second (middle) column of grid.
 secondColumn :: Grid -> GridRow
-secondColumn (Grid r1 r2 r3) = GridRow (secondCell r1) (secondCell r2) (secondCell r3)
+secondColumn = map secondCell
 
 -- | Third (right) column of grid.
 thirdColumn :: Grid -> GridRow
-thirdColumn (Grid r1 r2 r3) = GridRow (thirdCell r1) (thirdCell r2) (thirdCell r3)
+thirdColumn = map thirdCell
 
 -- | First (primary) diagonal of grid.
 firstDiagonal :: Grid -> GridRow
-firstDiagonal (Grid r1 r2 r3) = GridRow (firstCell r1) (secondCell r2) (thirdCell r3)
+firstDiagonal = apply (Three firstCell secondCell thirdCell)
 
 -- | Second (secondary) diagonal of grid.
 secondDiagonal :: Grid -> GridRow
-secondDiagonal (Grid r1 r2 r3) = GridRow (thirdCell r1) (secondCell r2) (firstCell r3)
+secondDiagonal = apply (Three thirdCell secondCell firstCell)
