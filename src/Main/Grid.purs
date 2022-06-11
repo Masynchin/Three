@@ -1,7 +1,15 @@
 module Main.Grid
   ( Grid
+  , firstColumn
+  , firstDiagonal
+  , firstRow
   , grid
   , gridWinner
+  , secondColumn
+  , secondDiagonal
+  , secondRow
+  , thirdColumn
+  , thirdRow
   )
   where
 
