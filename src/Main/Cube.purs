@@ -1,4 +1,10 @@
-module Main.Cube where
+module Main.Cube
+  ( allGrids
+  , cube
+  , cubeCell
+  , cubeWinner
+  )
+  where
 
 import Prelude
 
@@ -6,6 +12,8 @@ import Data.Foldable (findMap)
 import Data.List (List(..), (:))
 import Data.Maybe (Maybe)
 import Data.Three (Three(..), fst, snd, trd)
+import Main.Cell (Cell)
+import Main.Coords (Coords, ofCoord)
 import Main.Grid (Grid, firstColumn, firstDiagonal, firstRow, gridWinner, secondColumn, secondDiagonal, secondRow, thirdColumn, thirdRow)
 import Main.Player (Player)
 
@@ -78,3 +86,7 @@ firstDiagonalGrid = map firstDiagonal
 -- | Second (secondary) diagonal grid of cube.
 secondDiagonalGrid :: Cube -> Grid
 secondDiagonalGrid = map secondDiagonal
+
+-- | Cube cell with given coords.
+cubeCell :: Coords -> Cube -> Cell
+cubeCell (Three x y z) = (ofCoord x) <<< (ofCoord y) <<< (ofCoord z)

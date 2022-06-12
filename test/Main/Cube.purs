@@ -6,9 +6,11 @@ module Test.Main.Cube
 import Prelude
 
 import Data.Maybe (Maybe(..))
+import Data.Three (Three(..))
 import Effect (Effect)
 import Main.Cell (Cell(..))
-import Main.Cube (cube, cubeWinner)
+import Main.Coords (Coord(..))
+import Main.Cube (cube, cubeCell, cubeWinner)
 import Main.Grid (grid)
 import Main.GridRow (gridRow)
 import Main.Player (Player(..))
@@ -124,3 +126,25 @@ testCube = do
                   (gridRow e e e)
                   (gridRow e e e))
           equal (cubeWinner c) Nothing
+      suite "has cell" do
+        test "in bounds" do
+          let e = Empty
+              x = Mark X
+              o = Mark O
+              coordX = Three Zero Zero Zero
+              coordO = Three Two Two Two
+              c = cube
+                (grid
+                  (gridRow x e e)
+                  (gridRow e e e)
+                  (gridRow e e e))
+                (grid
+                  (gridRow e e e)
+                  (gridRow e e e)
+                  (gridRow e e e))
+                (grid
+                  (gridRow e e e)
+                  (gridRow e e e)
+                  (gridRow e e o))
+          equal (cubeCell coordX c) x
+          equal (cubeCell coordO c) o

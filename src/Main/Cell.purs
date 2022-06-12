@@ -17,6 +17,10 @@ instance eqCell :: Eq Cell where
   eq (Mark p1) (Mark p2) = p1 == p2
   eq _ _ = false
 
+instance showCell :: Show Cell where
+  show Empty = "."
+  show (Mark p) = show p
+
 -- | Player mark of cell if marked.
 playerCell :: Cell -> Maybe Player
 playerCell (Mark p) = Just p
