@@ -1,5 +1,6 @@
 module Main.Cell
   ( Cell(..)
+  , markCell
   , playerCell
   )
   where
@@ -25,3 +26,8 @@ instance showCell :: Show Cell where
 playerCell :: Cell -> Maybe Player
 playerCell (Mark p) = Just p
 playerCell _ = Nothing
+
+-- | Mark cell with player.
+markCell :: Player -> Cell -> Cell
+markCell _ c@(Mark _) = c
+markCell p Empty = Mark p

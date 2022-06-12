@@ -8,7 +8,8 @@ import Prelude
 import Data.Maybe (Maybe(..))
 import Effect (Effect)
 import Main.Cell (Cell(..))
-import Main.GridRow (gridRow, rowWinner)
+import Main.Coords (Coord(..))
+import Main.GridRow (gridRow, markRowCell, rowWinner)
 import Main.Player (Player(..))
 import Test.Unit (suite, test)
 import Test.Unit.Assert (equal)
@@ -38,3 +39,12 @@ testGridRow = do
         test "when different players" do
           let row = gridRow (Mark X) (Mark O) (Mark X)
           equal (rowWinner row) Nothing
+      suite "marks cell" do
+        test "when empty" do
+          let row = gridRow Empty Empty Empty
+              updated = gridRow (Mark X) Empty Empty
+          equal (markRowCell Zero X row) updated
+      suite "not marks cell" do
+        test "when already marked" do
+          let row = gridRow (Mark X) (Mark X) (Mark X)
+          equal (markRowCell Zero O row) row

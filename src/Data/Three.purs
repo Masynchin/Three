@@ -22,6 +22,11 @@ snd (Three _ x _) = x
 trd :: forall a. Three a -> a
 trd (Three _ _ x) = x
 
+derive instance eqThree :: Eq a => Eq (Three a)
+
+instance showThree :: Show a => Show (Three a) where
+  show (Three x y z) = "(Three " <> show x <> " " <> show y <> " " <> show z <> ")"
+
 instance functorThree :: Functor Three where
   map f (Three x y z) = Three (f x) (f y) (f z)
 

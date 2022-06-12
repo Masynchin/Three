@@ -2,6 +2,7 @@ module Main.Coords
   ( Coord(..)
   , Coords
   , allCoords
+  , modifyAt
   , ofCoord
   )
   where
@@ -30,3 +31,9 @@ ofCoord :: forall a. Coord -> (Three a -> a)
 ofCoord Zero = fst
 ofCoord One = snd
 ofCoord Two = trd
+
+-- | Modify elem of Three in given coord.
+modifyAt :: forall a. Coord -> (a -> a) -> Three a -> Three a
+modifyAt Zero f = apply (Three f identity identity)
+modifyAt One  f = apply (Three identity f identity)
+modifyAt Two  f = apply (Three identity identity f)
