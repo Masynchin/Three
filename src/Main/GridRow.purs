@@ -2,6 +2,7 @@ module Main.GridRow
   ( GridRow
   , firstCell
   , gridRow
+  , markRowCell
   , rowWinner
   , secondCell
   , thirdCell
@@ -12,7 +13,8 @@ import Prelude
 
 import Data.Maybe (Maybe(..))
 import Data.Three (Three(..), fst, snd, trd)
-import Main.Cell (Cell, playerCell)
+import Main.Cell (Cell, markCell, playerCell)
+import Main.Coords (Coord, modifyAt)
 import Main.Player (Player)
 
 -- | Grid row.
@@ -39,3 +41,7 @@ secondCell = snd
 -- | Third (right) cell of row.
 thirdCell :: GridRow -> Cell
 thirdCell = trd
+
+-- | Mark cell in row with player.
+markRowCell :: Coord -> Player -> GridRow -> GridRow
+markRowCell coord = modifyAt coord <<< markCell
