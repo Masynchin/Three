@@ -74,6 +74,23 @@ testCube = do
                   (gridRow x e e)
                   (gridRow e e e))
           equal (cubeWinner c) (Just X)
+        test "when diagonal grid completed" do
+          let e = Empty
+              x = Mark X
+              c = cube
+                (grid
+                  (gridRow e e x)
+                  (gridRow e e e)
+                  (gridRow e e e))
+                (grid
+                  (gridRow e e e)
+                  (gridRow e x e)
+                  (gridRow e e e))
+                (grid
+                  (gridRow e e e)
+                  (gridRow e e e)
+                  (gridRow x e e))
+          equal (cubeWinner c) (Just X)
       suite "not complete" do
         test "when all empty" do
           let e = Empty
