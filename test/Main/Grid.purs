@@ -8,7 +8,8 @@ import Prelude
 import Data.Maybe (Maybe(..))
 import Effect (Effect)
 import Main.Cell (Cell(..))
-import Main.Grid (grid, gridWinner)
+import Main.Coords (Coord(..))
+import Main.Grid (grid, gridWinner, markGridCell)
 import Main.GridRow (gridRow)
 import Main.Player (Player(..))
 import Test.Unit (suite, test)
@@ -68,3 +69,25 @@ testGrid = do
                 (gridRow x o o)
                 (gridRow o x x)
           equal (gridWinner g) Nothing
+      suite "marks cell" do
+        test "when empty" do
+          let e = Empty
+              x = Mark X
+              g = grid
+                (gridRow e e e)
+                (gridRow e e e)
+                (gridRow e e e)
+              u = grid
+                (gridRow x e e)
+                (gridRow e e e)
+                (gridRow e e e)
+          equal (markGridCell Zero Zero X g) u
+      suite "not marks cell" do
+        test "when already marked" do
+          let o = Mark O
+              x = Mark X
+              g = grid
+                (gridRow x o x)
+                (gridRow x o o)
+                (gridRow o x x)
+          equal (markGridCell Zero One X g) g

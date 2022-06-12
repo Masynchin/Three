@@ -5,6 +5,7 @@ module Main.Grid
   , firstRow
   , grid
   , gridWinner
+  , markGridCell
   , secondColumn
   , secondDiagonal
   , secondRow
@@ -19,7 +20,8 @@ import Data.Foldable (findMap)
 import Data.List (List(..), (:))
 import Data.Maybe (Maybe)
 import Data.Three (Three(..), fst, snd, trd)
-import Main.GridRow (GridRow, firstCell, rowWinner, secondCell, thirdCell)
+import Main.Coords (Coord, modifyAt)
+import Main.GridRow (GridRow, firstCell, markRowCell, rowWinner, secondCell, thirdCell)
 import Main.Player (Player)
 
 type Grid = Three GridRow
@@ -76,3 +78,7 @@ firstDiagonal = apply (Three firstCell secondCell thirdCell)
 -- | Second (secondary) diagonal of grid.
 secondDiagonal :: Grid -> GridRow
 secondDiagonal = apply (Three thirdCell secondCell firstCell)
+
+-- | Mark cell in grid with player.
+markGridCell :: Coord -> Coord -> Player -> Grid -> Grid
+markGridCell y x player = modifyAt y (markRowCell x player)
