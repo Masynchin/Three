@@ -39,7 +39,7 @@ allGrids = flap ( firstGridXY
                 : secondGridYZ
                 : thirdGridYZ
                 : firstDiagonalGrid
-                : firstDiagonalGrid
+                : secondDiagonalGrid
                 : Nil
                 )
 
