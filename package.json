@@ -1,0 +1,23 @@
+{
+  "name": "three",
+  "version": "0.1.0",
+  "description": "3D version of Tic-Tac-Toe",
+  "author": "Max Smirnov <masynchin@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Masynchin/Three.git"
+  },
+  "homepage": "https://github.com/Masynchin/Three",
+  "bugs": {
+    "url": "https://github.com/Masynchin/Three/issues"
+  },
+  "scripts": {
+    "build": "spago build",
+    "test": "spago test"
+  },
+  "devDependencies": {
+    "purescript": "^0.15.2",
+    "spago": "^0.20.9"
+  }
+}
