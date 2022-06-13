@@ -3,6 +3,7 @@ module Main.Cube
   , cube
   , cubeCell
   , cubeWinner
+  , markCubeCell
   )
   where
 
@@ -13,8 +14,8 @@ import Data.List (List(..), (:))
 import Data.Maybe (Maybe)
 import Data.Three (Three(..), fst, snd, trd)
 import Main.Cell (Cell)
-import Main.Coords (Coords, ofCoord)
-import Main.Grid (Grid, firstColumn, firstDiagonal, firstRow, gridWinner, secondColumn, secondDiagonal, secondRow, thirdColumn, thirdRow)
+import Main.Coords (Coord, Coords, modifyAt, ofCoord)
+import Main.Grid (Grid, firstColumn, firstDiagonal, firstRow, gridWinner, markGridCell, secondColumn, secondDiagonal, secondRow, thirdColumn, thirdRow)
 import Main.Player (Player)
 
 type Cube = Three Grid
@@ -90,3 +91,7 @@ secondDiagonalGrid = map secondDiagonal
 -- | Cube cell with given coords.
 cubeCell :: Coords -> Cube -> Cell
 cubeCell (Three x y z) = (ofCoord x) <<< (ofCoord y) <<< (ofCoord z)
+
+-- | Mark cell in cube with player.
+markCubeCell :: Coord -> Coord -> Coord -> Player -> Cube -> Cube
+markCubeCell z y x player = modifyAt z (markGridCell y x player)

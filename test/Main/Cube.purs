@@ -10,7 +10,7 @@ import Data.Three (Three(..))
 import Effect (Effect)
 import Main.Cell (Cell(..))
 import Main.Coords (Coord(..))
-import Main.Cube (cube, cubeCell, cubeWinner)
+import Main.Cube (cube, cubeCell, cubeWinner, markCubeCell)
 import Main.Grid (grid)
 import Main.GridRow (gridRow)
 import Main.Player (Player(..))
@@ -165,3 +165,51 @@ testCube = do
                   (gridRow e e o))
           equal (cubeCell coordX c) x
           equal (cubeCell coordO c) o
+      suite "marks cell" do
+        test "when empty" do
+          let e = Empty
+              x = Mark X
+              c = cube
+                (grid
+                  (gridRow e e e)
+                  (gridRow e e e)
+                  (gridRow e e e))
+                (grid
+                  (gridRow e e e)
+                  (gridRow e e e)
+                  (gridRow e e e))
+                (grid
+                  (gridRow e e e)
+                  (gridRow e e e)
+                  (gridRow e e e))
+              u = cube
+                (grid
+                  (gridRow x e e)
+                  (gridRow e e e)
+                  (gridRow e e e))
+                (grid
+                  (gridRow e e e)
+                  (gridRow e e e)
+                  (gridRow e e e))
+                (grid
+                  (gridRow e e e)
+                  (gridRow e e e)
+                  (gridRow e e e))
+          equal (markCubeCell Zero Zero Zero X c) u
+      suite "not marks cell" do
+        test "when already marked" do
+          let x = Mark X
+              c = cube
+                (grid
+                  (gridRow x x x)
+                  (gridRow x x x)
+                  (gridRow x x x))
+                (grid
+                  (gridRow x x x)
+                  (gridRow x x x)
+                  (gridRow x x x))
+                (grid
+                  (gridRow x x x)
+                  (gridRow x x x)
+                  (gridRow x x x))
+          equal (markCubeCell Zero Zero Zero O c) c
