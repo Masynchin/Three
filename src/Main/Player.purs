@@ -8,10 +8,7 @@ import Prelude
 -- | Player of the game.
 data Player = X | O
 
-instance eqPlayer :: Eq Player where
-  eq X X = true
-  eq O O = true
-  eq _ _ = false
+derive instance eqPlayer :: Eq Player
 
 instance showPlayer :: Show Player where
   show X = "X"
